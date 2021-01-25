@@ -38,6 +38,9 @@ module.exports = {
     extend: {
       colors: {
         "neon-orange": "#f92300",
+        "js-yellow-x": "#ffef74",
+        "js-yellow-y": "#f1dd3f",
+        "light-yellow": "#f9d276"
       },
       fontSize: {
         "7xl": "4.5rem",
@@ -59,7 +62,7 @@ module.exports = {
               backgroundColor: theme("colors.gray.700"),
             },
             a: {
-              color: theme("colors.neon-orange"),
+              color: theme("colors.light-yellow"),
             },
           },
         },
@@ -76,8 +79,11 @@ module.exports = {
             "ul > li::before": {
               backgroundColor: theme("colors.gray.300"),
             },
+            "#header": {
+              backgroundColor: theme("colors.gray.700"),
+            },
             a: {
-              color: theme("colors.yellow.500"),
+              color: theme("colors.light-yellow"),
             },
             h1: {
               color: theme("colors.gray.100"),

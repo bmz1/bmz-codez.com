@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import { getSiteMetaData } from "@utils/helpers";
 
-export function SEO({ title, description = "" }) {
+export function SEO({ title, description = "", canonicalUrl }) {
   const siteMetadata = getSiteMetaData();
 
   const metaDescription = description || siteMetadata.description;
@@ -20,6 +20,7 @@ export function SEO({ title, description = "" }) {
         property="og:description"
         content={metaDescription}
       />
+      {canonicalUrl && <link rel="canonical" href={`${canonicalUrl}`} />}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />

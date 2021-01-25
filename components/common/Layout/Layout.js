@@ -6,12 +6,13 @@ import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { useTheme } from "next-themes";
 
 export function Layout({ children }) {
+  // linear-gradient(240deg,#ffef74,#f1dd3f)
   return (
     <div className="w-full min-h-screen dark:bg-gray-700 dark:text-white">
-      <div className="max-w-screen-sm px-4 py-12 mx-auto antialiased font-body">
+      <div className="max-w-screen-md py-12 mx-auto antialiased font-body">
         <Header />
-        <main>{children}</main>
-        <footer className="text-lg font-light">
+        <main className="relative">{children}</main>
+        <footer className="text-lg font-light px-4">
           © {new Date().getFullYear()}, Built with{" "}
           <a href="https://nextjs.org/">Next.js</a>
           &#128293;
@@ -40,10 +41,14 @@ const Header = () => {
 
   return (
     <header
-      className={clsx("flex items-center justify-between ", {
-        "mb-8": isRoot,
-        "mb-2": !isRoot,
-      })}
+      id="#header"
+      className={clsx(
+        "fixed z-10 top-0 left-0 w-full h-16 flex bg-js-yellow-y dark:bg-gray-700 items-center justify-between p-5",
+        {
+          "mb-8": isRoot,
+          "mb-2": !isRoot,
+        }
+      )}
     >
       <div className={"max-w-md"}>
         {isRoot ? <LargeTitle /> : <SmallTitle />}
@@ -69,7 +74,7 @@ const LargeTitle = () => (
           "dark:text-white"
         )}
       >
-        Next.Js Starter Blog
+        BMZCodez
       </a>
     </Link>
   </h1>
@@ -84,7 +89,7 @@ const SmallTitle = () => (
           "dark:text-white"
         )}
       >
-        Next.Js Starter Blog
+        BMZCodez
       </a>
     </Link>
   </h1>

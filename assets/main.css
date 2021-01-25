@@ -6,10 +6,14 @@
   @import "./base.css";
 
   a {
-    @apply text-neon-orange dark:text-yellow-500;
+    @apply text-neon-orange dark:text-light-yellow;
   }
 }
 
 @layer components {
   @import "./components.css";
+}
+
+.js-yellow {
+  background: linear-gradient(240deg,#ffef74,#f1dd3f);
 }

@@ -12,17 +12,29 @@ export default function Post({ post, frontmatter, nextPost, previousPost }) {
       <SEO
         title={frontmatter.title}
         description={frontmatter.description || post.excerpt}
+        canonicalUrl={frontmatter.canonicalUrl}
       />
 
-      <article>
-        <header className="mb-8">
+      <div className="w-full bg-js-yellow-y dark:bg-gray-600 p-10 flex justify-center mb-8" id="header">
+        <header>
           <h1 className="mb-2 text-6xl font-black leading-none font-display">
             {frontmatter.title}
           </h1>
-          <p className="text-sm">{frontmatter.date}</p>
+          <div className="flex justify-between flex-wrap">
+            <p className="text-sm flex-1">{frontmatter.date}</p>
+            <div className="flex mt-1">
+            {frontmatter.tags.map((tag) => (
+              <Link href={"/tag/[tag]"} as={`/tag/${tag}`} key={tag}>
+                <p className="text-sm p-1 cursor-pointer">{`#${tag}`}</p>
+              </Link>
+            ))}
+            </div>
+          </div>
         </header>
+      </div>
+      <article className="relative px-4">
         <ReactMarkdown
-          className="mb-4 prose lg:prose-lg dark:prose-dark"
+          className="mb-4 prose lg:prose-lg dark:prose-dark top-4"
           escapeHtml={false}
           source={post.content}
           renderers={{ code: CodeBlock, image: MarkdownImage }}
@@ -57,7 +69,6 @@ export default function Post({ post, frontmatter, nextPost, previousPost }) {
 
 export async function getStaticPaths() {
   const paths = getPostsSlugs();
-
   return {
     paths,
     fallback: false,
@@ -66,7 +77,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { slug } }) {
   const postData = getPostBySlug(slug);
-
   if (!postData.previousPost) {
     postData.previousPost = null;
   }
@@ -86,12 +96,24 @@ const CodeBlock = ({ language, value }) => {
   );
 };
 
-const MarkdownImage = ({ alt, src }) => (
-  <Image
-    alt={alt}
-    src={require(`../../content/assets/${src}`)}
-    webpSrc={require(`../../content/assets/${src}?webp`)}
-    previewSrc={require(`../../content/assets/${src}?lqip`)}
-    className="w-full"
-  />
-);
+const MarkdownImage = ({ alt, src }) => {
+  let source =
+    src.indexOf("http") > -1 ? src : require(`../../content/assets/${src}`);
+  let webpSrc =
+    src.indexOf("http") > -1
+      ? src
+      : require(`../../content/assets/${src}?webp`);
+  let previewSrc =
+    src.indexOf("http") > -1
+      ? src
+      : require(`../../content/assets/${src}?lqip`);
+  return (
+    <Image
+      alt={alt}
+      src={source}
+      webpSrc={webpSrc}
+      previewSrc={previewSrc}
+      className="w-full"
+    />
+  );
+};

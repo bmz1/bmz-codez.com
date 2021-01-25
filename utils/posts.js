@@ -80,3 +80,8 @@ export function getPostBySlug(slug) {
 
   return { frontmatter, post: { content, excerpt }, previousPost, nextPost };
 }
+
+export function getPostsByTag(tag = '') {
+  const posts = getSortedPosts();
+  return posts.filter(({ frontmatter: { tags }}) => tags.includes(tag))
+}
